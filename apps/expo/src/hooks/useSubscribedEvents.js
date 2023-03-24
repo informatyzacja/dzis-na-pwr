@@ -19,21 +19,19 @@ const scheduleNotification = async (event) => {
   return id;
 };
 
-const removeNotification = async (event) => {
-  await Notifications.cancelScheduledNotificationAsync(event.notificationId);
+const removeNotification = (event) => {
+  Notifications.cancelScheduledNotificationAsync(event.notificationId);
 };
 
 export const useSubscribedEvents = () => {
   const [subscribedEvents, setSubscribedEvents] = useAtom(subscribedEventsAtom);
 
-  const subscribe = (event) => {
-    scheduleNotification(event).then((result) => {
-      event.notificationId = result;
-    });
-    event.subEvents.map((subEvent) => {
-      scheduleNotification(subEvent).then((result) => {
-        subEvent.notificationId = result;
-      });
+  const subscribe = async (event) => {
+    const id = await scheduleNotification(event);
+    event.notificationId = id;
+    event.subEvents.map(async (subEvent) => {
+      const id = await scheduleNotification(subEvent);
+      subEvent.notificationId = id;
     });
     const newSubscribedEvents = [...subscribedEvents, event];
     setSubscribedEvents(newSubscribedEvents);
