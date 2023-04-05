@@ -1,10 +1,9 @@
-import { StyleSheet, View } from "react-native";
-import theme from "../theme";
-import CardRow from "./CardRow";
-import SubscribeButton from "./SubscribeButton";
-import { useState, useEffect } from "react";
-import { useSubscribedEvents } from "../hooks/useSubscribedEvents";
-import { useIsSubscribed } from "../hooks/useIsSubscribed";
+import { useIsSubscribed } from '../hooks/useIsSubscribed';
+import { useSubscribedEvents } from '../hooks/useSubscribedEvents';
+import theme from '../theme';
+import CardRow from './CardRow';
+import SubscribeButton from './SubscribeButton';
+import { StyleSheet, View } from 'react-native';
 
 const EventDetailsCard = ({ eventData }) => {
   const isSubscribed = useIsSubscribed(eventData);
@@ -23,14 +22,14 @@ const EventDetailsCard = ({ eventData }) => {
     <View style={styles.detailsCardContainer}>
       <View style={styles.wrapper}>
         <CardRow
-          icon={"calendar"}
+          icon={'calendar'}
           text={`${eventData.startDate} - ${eventData.endDate}`}
         />
-        <CardRow icon={"map-marker"} text={eventData.place} />
+        <CardRow icon={'map-marker'} text={eventData.place} />
       </View>
       <View style={styles.buttonContainer}>
         <SubscribeButton
-          icon={isSubscribed ? "cards-heart" : "cards-heart-outline"}
+          icon={isSubscribed ? 'cards-heart' : 'cards-heart-outline'}
           onPress={handleOnClick}
         />
       </View>
@@ -44,13 +43,13 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: theme.colors.primaryContainer,
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   wrapper: { flex: 1, flexGrow: 3 },
   buttonContainer: {
     flex: 1,
-    flexDirection: "column",
-    alignSelf: "center",
+    flexDirection: 'column',
+    alignSelf: 'center',
   },
 });
 
