@@ -1,4 +1,4 @@
-name: Preview
+name: Preview mobile
 on:
   pull_request:
     types: [opened, reopened, synchronize]
@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: bahmutov/npm-install@v1
+      - uses: bahmutov/npm-install@v1.8.24
 
       - name: Setup Expo
         uses: expo/expo-github-action@v7
