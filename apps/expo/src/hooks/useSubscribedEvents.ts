@@ -1,15 +1,18 @@
+import { RouterOutputs } from '../api';
 import { subscribedEventsAtom } from '../atoms/subscribedEvents';
 import * as Notifications from 'expo-notifications';
 import { useAtom } from 'jotai';
 
+type Event = RouterOutputs['events']['list'][number];
+
 // TODO: Add iteration on
-const scheduleNotification = async (event) => {
-  const trigger = new Date(event.startDate);
+const scheduleNotification = async (event: Event) => {
+  const trigger = event.startsAt;
   trigger.setMinutes(trigger.getMinutes() - 15);
   const id = await Notifications.scheduleNotificationAsync({
     content: {
       title: event.name,
-      body: `Masz wydarzenie odbywające się w miejscu: ${event.place}`,
+      body: `Masz wydarzenie odbywające się w miejscu: ${event.location}`,
       sound: false,
       priority: Notifications.AndroidNotificationPriority.HIGH,
       color: 'blue',
@@ -37,12 +40,12 @@ export const useSubscribedEvents = () => {
     setSubscribedEvents(newSubscribedEvents);
   };
 
-  const unSubscribe = (event) => {
+  const unSubscribe = (event: Event) => {
     const newSubscribedEvents = subscribedEvents.filter((item) => {
       if (item.id === event.id) {
         removeNotification(event);
-        event.subEvents.map((subEvent) => {
-          removeNotification(subEvent);
+        event.AgendaItem.map((subEvent) => {
+          removeNotification(subEvent.id);
         });
       }
       return item.id !== event.id;

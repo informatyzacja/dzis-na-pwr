@@ -1,12 +1,19 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import EventList from "./EventsList";
-import EventDetails from "./EventDetails";
-import SubscribedEventsList from "./SubscribedEventsList";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import theme from "../theme";
-const Stack = createNativeStackNavigator();
-const Tab = createMaterialBottomTabNavigator();
+import theme from '../theme';
+import EventDetails from './EventDetails';
+import EventsList, { Event } from './EventsList';
+import SubscribedEventsList from './SubscribedEventsList';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+export type RootStackParamList = {
+  EventsList: undefined;
+  SubscribedEventsList: undefined;
+  EventDetails: Event;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createMaterialBottomTabNavigator<RootStackParamList>();
 
 const EventsNavigator = () => {
   return (
@@ -14,7 +21,7 @@ const EventsNavigator = () => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="EventsList"
-        component={EventList}
+        component={EventsList}
       />
       <Stack.Screen
         name="EventDetails"
@@ -34,7 +41,7 @@ const SubscribedEventsNavigator = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{ headerShown: false }}
-        name="SubsrcibedEventList"
+        name="SubscribedEventsList"
         component={SubscribedEventsList}
       />
       <Stack.Screen
@@ -54,9 +61,6 @@ const SubscribedEventsNavigator = () => {
 const Navbar = () => {
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
       barStyle={{ backgroundColor: theme.colors.primaryContainer }}
       sceneAnimationEnabled={false}
     >
@@ -64,7 +68,7 @@ const Navbar = () => {
         name="EventsList"
         component={EventsNavigator}
         options={{
-          tabBarLabel: "Wydarzenia",
+          tabBarLabel: 'Wydarzenia',
           tabBarIcon: ({ color }) => {
             return (
               <MaterialCommunityIcons name="calendar" color={color} size={26} />
@@ -73,9 +77,9 @@ const Navbar = () => {
         }}
       />
       <Tab.Screen
-        name="SubsrcibedEventList"
+        name="SubscribedEventsList"
         options={{
-          tabBarLabel: "Obserwowane",
+          tabBarLabel: 'Obserwowane',
           tabBarIcon: ({ color }) => {
             return (
               <MaterialCommunityIcons

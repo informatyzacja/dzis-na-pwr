@@ -13,6 +13,11 @@
     "clean:workspaces": "turbo clean",
     "db:generate": "turbo db:generate",
     "db:push": "dotenv -- turbo db:push db:generate",
+    "db:migrate": "dotenv -- npm run migrate",
+    "migrate": "cd packages/db && npm run db:migrate",
+    "db:seed": "dotenv -- turbo db:seed",
+    "db:studio": "dotenv -- turbo db:studio",
+    "start": "dotenv -- turbo start",
     "dev": "dotenv -- turbo dev --parallel --filter=!expo",
     "dev:mobile": "cd apps/expo && npm run dev",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
@@ -58,7 +63,7 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4",
-    "turbo": "^1.8.2",
+    "turbo": "^1.9.4",
     "typescript": "^4.9.5"
   },
   "ct3aMetadata": {

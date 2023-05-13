@@ -1,14 +1,22 @@
-import { Text } from "react-native-paper";
-import { View, Image, ScrollView, StyleSheet } from "react-native";
-import SubEventCard from "../components/SubEventCard";
-import EventDetailsCard from "../components/EventDetailsCard";
-const EventDetails = ({ route, navigation }) => {
+import EventDetailsCard from '../components/EventDetailsCard';
+import SubEventCard from '../components/SubEventCard';
+import { RootStackParamList } from './Navbar';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { View, Image, ScrollView, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
+
+type EventDetailsProps = NativeStackScreenProps<
+  RootStackParamList,
+  'EventDetails'
+>;
+
+const EventDetails = ({ route }: EventDetailsProps) => {
   const eventData = route.params;
   return (
     <ScrollView>
       <View style={styles.mainViewContainer}>
         <Image
-          source={{ uri: eventData.banerURL }}
+          source={{ uri: eventData.logoUrl }}
           style={styles.imageContainer}
           resizeMode="cover"
         />
@@ -23,14 +31,8 @@ const EventDetails = ({ route, navigation }) => {
           </Text>
         </View>
         <Text variant="titleLarge">Harmonogram</Text>
-        {eventData.subEvents.map((subEvent) => {
-          return (
-            <SubEventCard
-              key={subEvent.id}
-              subEvent={subEvent}
-              navigation={navigation}
-            />
-          );
+        {eventData.AgendaItem.map((subEvent) => {
+          return <SubEventCard key={subEvent.id} subEvent={subEvent} />;
         })}
       </View>
     </ScrollView>
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginTop: 10,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   imageContainer: {
     height: 200,

@@ -1,6 +1,6 @@
-import { Appbar, useTheme } from "react-native-paper";
+import { Appbar, useTheme } from 'react-native-paper';
 
-const AppbarComponent = ({ title, navigation }) => {
+const AppbarComponent = ({ title }: { title: string }) => {
   const { colors } = useTheme();
   return (
     <Appbar.Header

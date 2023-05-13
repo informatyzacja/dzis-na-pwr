@@ -12,5 +12,5 @@ PACKAGE_LOCK_REGEX="^yarn\.lock"
 PACKAGES="$(git diff --name-only HEAD@{1} HEAD | grep -E "$PACKAGE_LOCK_REGEX" || true)"
 if [ ! -z "$PACKAGES" ]; then
   echo "📦 Lockfile was changed. Running yarn install to update your dependencies..."
-  yarn install
+  npm install
 fi

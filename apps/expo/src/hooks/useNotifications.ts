@@ -16,5 +16,9 @@ export const useNotifications = () => {
     askNotification();
     const listener =
       Notifications.addNotificationReceivedListener(handleNotification);
+
+    return () => {
+      listener.remove();
+    };
   }, []);
 };

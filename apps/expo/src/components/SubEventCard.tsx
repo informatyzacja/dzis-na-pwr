@@ -3,7 +3,7 @@ import CardRow from './CardRow';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-const SubEventCard = ({ subEvent, navigation }) => {
+const SubEventCard = ({ subEvent }) => {
   const startDateSplitted = subEvent.startDate.split('T');
   return (
     <View style={styles.cardContainer}>

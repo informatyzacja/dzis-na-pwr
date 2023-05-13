@@ -10,8 +10,22 @@
       "inputs": ["prisma/schema.prisma"],
       "cache": false
     },
+    "db:migrate": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
+    },
+    "db:seed": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false
+    },
     "dev": {
       "dependsOn": ["^db:generate"],
+      "persistent": true,
+      "cache": false
+    },
+    "start": {
       "persistent": true,
       "cache": false
     },
