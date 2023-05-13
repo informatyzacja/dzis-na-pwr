@@ -1,13 +1,14 @@
-import AppbarComponent from "../components/AppbarComponent";
-import { View, StyleSheet, FlatList } from "react-native";
-import EventCard from "../components/EventCard";
-import { useSubscribedEvents } from "../hooks/useSubscribedEvents";
+import AppbarComponent from '../components/AppbarComponent';
+import EventCard from '../components/EventCard';
+import { useSubscribedEvents } from '../hooks/useSubscribedEvents';
+import { View, StyleSheet, FlatList } from 'react-native';
+
 const SubscribedEventsList = ({ navigation }) => {
   const { subscribedEvents } = useSubscribedEvents();
 
   return (
     <>
-      <AppbarComponent title={"Zapisane wydarzenia"} navigation={navigation} />
+      <AppbarComponent title={'Zapisane wydarzenia'} navigation={navigation} />
       <View style={styles.eventListContainer}>
         <FlatList
           data={subscribedEvents}

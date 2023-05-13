@@ -10,12 +10,7 @@ const EventDetailsCard = ({ eventData }) => {
   const { addEvent, removeEvent } = useSubscribedEvents();
 
   const handleOnClick = async () => {
-    if (isSubscribed) {
-      removeEvent(eventData);
-    }
-    if (!isSubscribed) {
-      addEvent(eventData);
-    }
+    isSubscribed ? removeEvent(eventData) : addEvent(eventData);
   };
 
   return (

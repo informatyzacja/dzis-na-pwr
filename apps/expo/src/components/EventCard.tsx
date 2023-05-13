@@ -1,20 +1,23 @@
+import { Event, EventsListNavigationProp } from '../routes/EventsList';
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { Card, Text, TouchableRipple } from 'react-native-paper';
 
-const EventCard = ({ item, navigation }) => {
+const EventCard = ({ item }: { item: Event }) => {
+  // console.log(console.log('item', JSON.stringify(item, null, 2)));
   //TODO: Switch in later version from fake api call to AsyncStorage Call
-  // const navigation = useNavigation();
+  const navigation = useNavigation<EventsListNavigationProp>();
   return (
     <TouchableRipple
       onPress={() => navigation.navigate('EventDetails', item)}
       rippleColor="rgba(0, 0, 0, .32)"
     >
       <Card mode="elevated" style={styles.eventCard}>
-        <Card.Cover source={{ uri: item.banerURL }} />
+        <Card.Cover source={{ uri: item.logoUrl }} />
         <Card.Title
           title={item.name}
           titleVariant="headlineSmall"
-          subtitle={item.startDate}
+          // subtitle={item.startsAt.toDateString()}
           subtitleVariant="titleSmall"
         />
         <Card.Content>

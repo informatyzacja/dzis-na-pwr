@@ -13,8 +13,8 @@
   "dependencies": {
     "@informatyzacja/auth": "*",
     "@informatyzacja/db": "*",
-    "@trpc/client": "^10.12.0",
-    "@trpc/server": "^10.12.0",
+    "@trpc/client": "^10.18.0",
+    "@trpc/server": "^10.18.0",
     "superjson": "^1.12.2",
     "zod": "^3.20.6"
   },

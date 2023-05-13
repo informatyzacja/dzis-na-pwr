@@ -15,7 +15,6 @@ const SubscribeButton = ({ icon, onPress }) => {
           backgroundColor: 'transparent',
         }}
         color={theme.colors.onSurface}
-        alignSelf={'center'}
       />
     </TouchableHighlight>
   );

@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
-  "exclude": [],
-  "include": ["**/*.js", "**/*.jsx", "**/*.cjs", "**/*.mjs"]
+  "compilerOptions": {},
+  "extends": "expo/tsconfig.base"
 }
