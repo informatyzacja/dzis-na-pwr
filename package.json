@@ -17,6 +17,7 @@
     "migrate": "cd packages/db && npm run db:migrate",
     "db:seed": "dotenv -- turbo db:seed",
     "db:studio": "dotenv -- turbo db:studio",
+    "start": "dotenv -- turbo start",
     "dev": "dotenv -- turbo dev --parallel --filter=!expo",
     "dev:mobile": "cd apps/expo && npm run dev",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
