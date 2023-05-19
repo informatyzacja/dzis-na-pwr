@@ -34,6 +34,6 @@ USER nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/out/full .
 COPY --from=builder --chown=nextjs:nodejs /app/out/package-lock.json ./package-lock.json
 COPY --from=installer --chown=nextjs:nodejs /app/node_modules ./node_modules/
-
+COPY --from=builder --chown=nextjs:nodejs /app/tsconfig.json ./tsconfig.json
 
 CMD npm run db:migrate:prod && npm run db:studio
