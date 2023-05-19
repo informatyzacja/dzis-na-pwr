@@ -4,15 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Image, View } from 'react-native';
 import { Card, Text, TouchableRipple } from 'react-native-paper';
 
-const eventsNames = [
-  'Wieczór Gier Planszowych',
-  'OdraNa Juwenalia',
-  'Wieczór RPG - maj 2023',
-  'Studenckie Wesele PWr Party',
-  'Studenci na tropie wydziałowych tajemnic - Gra samorządowca 2023',
-  'Studencka Dawka Kultury x DKF - „Sekrety i kłamstwa',
-];
-
 const limit = 35;
 
 const limitEventName = (name: string) => {
@@ -38,7 +29,7 @@ const EventCard = ({ item }: { item: Event }) => {
       >
         <Image
           style={{ width: 80, height: 80, borderRadius: 4 }}
-          source={{ uri: `https://picsum.photos/80/80?random=${item.id}` }}
+          source={{ uri: item.logoUrl }}
         />
         <View>
           <Text
@@ -61,11 +52,7 @@ const EventCard = ({ item }: { item: Event }) => {
                 hour12: false,
               })}
           </Text>
-          <Text variant="titleMedium">
-            {limitEventName(
-              eventsNames[Math.floor(Math.random() * eventsNames.length)]
-            )}
-          </Text>
+          <Text variant="titleMedium">{limitEventName(item.name)}</Text>
           <Text
             variant="labelSmall"
             style={{

@@ -3,6 +3,15 @@ import { userFactory } from './user.factory';
 import { faker } from '@faker-js/faker/locale/pl';
 import type { Prisma } from '@prisma/client';
 
+const eventsNames = [
+  'Wieczór Gier Planszowych',
+  'OdraNa Juwenalia',
+  'Wieczór RPG - maj 2023',
+  'Studenckie Wesele PWr Party',
+  'Studenci na tropie wydziałowych tajemnic - Gra samorządowca 2023',
+  'Studencka Dawka Kultury x DKF - „Sekrety i kłamstwa',
+];
+
 export const eventFactory = (
   props?: Partial<Prisma.EventCreateInput>
 ): Prisma.EventCreateInput => {
@@ -25,10 +34,10 @@ export const eventFactory = (
   });
 
   return {
-    name: faker.lorem.words(3),
+    name: faker.helpers.arrayElement(eventsNames),
     description: faker.lorem.paragraphs(3),
     startsAt: faker.date.future(),
-    logoUrl: faker.image.imageUrl(),
+    logoUrl: faker.image.imageUrl(undefined, undefined, undefined, true),
     slug: faker.lorem.slug(),
     user: {
       connectOrCreate: {
