@@ -43,7 +43,8 @@ jobs:
       - name: Build app
         run: |
           cp .env.example .env
-          sed -i "s/NEXTAUTH_URL.*/NEXTAUTH_URL=${{ steps.tunnel-url.outputs.url-1 }}/" .env
+          sed -i "s/NEXTAUTH_URL.*//" .env
+          echo "NEXTAUTH_URL=${{ steps.tunnel-url.outputs.url-1 }}" >> .env
           npm run docker:build
 
       - name: Post mobile app
