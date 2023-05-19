@@ -41,7 +41,16 @@ jobs:
             **🖼️ Preview Environment:** _Building app..._
 
       - name: Build app
-        run: cp .env.example .env && docker compose build
+        run: |
+          cp .env.example .env
+          sed -i "s/NEXTAUTH_URL.*/NEXTAUTH_URL=${{ steps.tunnel-url.outputs.url-1 }}/" .env
+          npm run docker:build
+
+      - name: Post mobile app
+        uses: ./.github/expo-preview
+        with:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
       - name: Add info abourt starting app
         uses: marocchino/sticky-pull-request-comment@v2
@@ -53,7 +62,7 @@ jobs:
             **🖼️ Preview Environment:** _Launching app..._
 
       - name: Start app
-        run: docker compose up -d
+        run: npm run docker:run -- -d
 
       - uses: Rei-x/pull-request-preview-action/end-preview@main
         with:

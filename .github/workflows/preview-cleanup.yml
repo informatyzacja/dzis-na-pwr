@@ -12,11 +12,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node 16
+      - name: Setup Node 18
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - uses: bahmutov/npm-install@v1.8.24
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+
+      - name: CD into expo
+        run: cd ./apps/expo
 
       - name: Setup Expo
         uses: expo/expo-github-action@v7
