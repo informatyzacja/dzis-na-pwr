@@ -6,11 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres'
-  TURBO_TOKEN: turbotoken-oss-europe1
-  TURBO_TEAM: team_informatyzacjapwr
-
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -34,7 +29,7 @@ jobs:
         id: tunnel-url
         with:
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-          ports: 3000
+          ports: 3000,5000
 
       - name: Add info about build
         uses: marocchino/sticky-pull-request-comment@v2
@@ -46,7 +41,7 @@ jobs:
             **🖼️ Preview Environment:** _Building app..._
 
       - name: Build app
-        run: ORIGIN=${{ steps.tunnel-url.outputs.url-1 }} docker compose build
+        run: cp .env.example .env && docker compose build
 
       - name: Add info abourt starting app
         uses: marocchino/sticky-pull-request-comment@v2
@@ -58,7 +53,7 @@ jobs:
             **🖼️ Preview Environment:** _Launching app..._
 
       - name: Start app
-        run: npm run start:prod
+        run: docker compose up -d
 
       - uses: Rei-x/pull-request-preview-action/end-preview@main
         with:
