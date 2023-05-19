@@ -26,6 +26,7 @@ runs:
     - name: Publish Update
       id: publish-update
       run: |
+        export $( grep -vE "^(#.*|\s*)$" .env )
         cd apps/expo
         current_branch=$(git branch --show-current)
         update_output=$(eas update --branch $current_branch --auto --non-interactive --json)
