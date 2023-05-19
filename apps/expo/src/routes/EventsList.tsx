@@ -17,22 +17,19 @@ export type Event = RouterOutputs['events']['list'][number];
 
 const EventsList = (props: EventsListProps) => {
   const { data, isLoading, error } = api.events.list.useQuery();
-  const { data: helloWorld, error: errorHelloWorld } =
-    api.helloWorld.useQuery();
-  const navigation = props.navigation;
+
   return (
     <>
       <Searchbar
         value=""
         style={{
-          marginTop: 30,
+          marginTop: 50,
           marginBottom: 10,
           marginHorizontal: 13,
         }}
         placeholder="Szukaj wydarzenia"
       />
-      {helloWorld && <Text>{helloWorld}</Text>}
-      {errorHelloWorld && <Text>{JSON.stringify(errorHelloWorld)}</Text>}
+
       {isLoading === true ? (
         <View style={styles.loadingElementsContainer}>
           <Text variant="headlineSmall">Wczytuję dane</Text>
