@@ -22,7 +22,6 @@ COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
 RUN npm ci --ignore-scripts
-RUN npm run db:generate
 
 FROM base AS runner
 LABEL name="prisma-studio"
@@ -36,5 +35,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/out/full .
 COPY --from=builder --chown=nextjs:nodejs /app/out/package-lock.json ./package-lock.json
 COPY --from=installer --chown=nextjs:nodejs /app/node_modules ./node_modules/
 COPY --from=builder --chown=nextjs:nodejs /app/tsconfig.json ./tsconfig.json
+
+RUN npm run db:generate
 
 CMD npm run db:migrate:prod && npm run db:studio
