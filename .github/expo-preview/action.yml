@@ -38,7 +38,6 @@ runs:
         echo "::set-output name=ios_update_uri::$ios_update_uri"
         echo "::set-output name=android_update_id::$android_update_id"
         echo "::set-output name=android_update_uri::$android_update_uri"
-        echo "::set-output name=branch::$current_branch"
         cd ../..
       shell: bash
 
@@ -50,8 +49,8 @@ runs:
         number: ${{ github.event.issue.number || github.event.pull_request.number }}
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         message: |
-          :rocket: Published to Expo Preview Branch: `${{ steps.publish-update.outputs.branch }}`:
+          :rocket: Published to Expo Preview Branch: `${{github.head_ref}}`:
           | Platform         | Deployment  |
           | ---------------- | ----------- |
-          | iOS :apple:      | <img src="https://qr.expo.dev/eas-update?updateId=${{ steps.publish-update.outputs.ios_update_id }}&appScheme=exp&host=u.expo.dev" width="60%"/>      |
-          | Android :robot:  | <img src="https://qr.expo.dev/eas-update?updateId=${{ steps.publish-update.outputs.android_update_id }}&appScheme=exp&host=u.expo.dev" width="60%"/>       |
+          | Android :robot:  | <img src="https://qr.expo.dev/eas-update?updateId=${{ steps.publish-update.outputs.android_update_id }}&appScheme=exp&host=u.expo.dev" width="300"/><br/><details><summary>Expand for link</summary><br /><a href="${{ steps.publish-update.outputs.android_update_uri }}">${{ steps.publish-update.outputs.android_update_uri }}</a></details>        |
+          | iOS :apple:      | <details><summary>QR code</summary><img src="https://qr.expo.dev/eas-update?updateId=${{ steps.publish-update.outputs.ios_update_id }}&appScheme=exp&host=u.expo.dev" width="300"/></details><br/><details><summary>Expand for link</summary><br /><a href="${{ steps.publish-update.outputs.ios_update_uri }}">${{ steps.publish-update.outputs.ios_update_uri }}</a></details>       |
