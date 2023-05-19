@@ -40,18 +40,36 @@ jobs:
           message: |
             **🖼️ Preview Environment:** _Building app..._
 
+      - name: Build app
+        run: |
+          cp .env.example .env
+          sed -i "s/NEXTAUTH_URL.*//" .env
+          echo "NEXTAUTH_URL=${{ steps.tunnel-url.outputs.url-1 }}" >> .env
+
+          launch_as() {
+            local cmd_name=$1
+            shift
+            (time $@ || echo $cmd_name >> fail.txt) 2>&1 > $cmd_name.txt
+          }
+
+          time npm ci
+          time npm run build
+          launch_as build1 npm run docker:build &
+
       - name: Post mobile app
         uses: ./.github/expo-preview
         with:
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Build app
+      - name: Wait for build
         run: |
-          cp .env.example .env
-          sed -i "s/NEXTAUTH_URL.*//" .env
-          echo "NEXTAUTH_URL=${{ steps.tunnel-url.outputs.url-1 }}" >> .env
-          npm run docker:build
+          wait
+          cat build1.txt
+          if [ -f fail.txt ]; then
+            echo "Build failed"
+            exit 1
+          fi
 
       - name: Add info abourt starting app
         uses: marocchino/sticky-pull-request-comment@v2
