@@ -2,7 +2,7 @@ import { expo } from './app.config';
 import { TRPCProvider } from './src/api';
 import { useNotifications } from './src/hooks/useNotifications';
 import { useOnlineManager } from './src/hooks/useOnlineManager';
-import Navbar from './src/routes/Navbar';
+import Navigation from './src/routes/Navbar';
 import theme from './src/theme';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppRegistry, SafeAreaView } from 'react-native';
@@ -16,8 +16,8 @@ export default function Main() {
     <TRPCProvider>
       <PaperProvider theme={theme}>
         <SafeAreaView style={styles.safeAreaContainer}>
-          <NavigationContainer>
-            <Navbar />
+          <NavigationContainer theme={theme}>
+            <Navigation />
           </NavigationContainer>
         </SafeAreaView>
       </PaperProvider>

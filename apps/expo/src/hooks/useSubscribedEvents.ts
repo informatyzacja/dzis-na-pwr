@@ -1,4 +1,5 @@
 import { RouterOutputs } from '../api';
+import { notificationsAtom } from '../atoms/notifications';
 import { subscribedEventsAtom } from '../atoms/subscribedEvents';
 import * as Notifications from 'expo-notifications';
 import { useAtom } from 'jotai';
@@ -22,40 +23,52 @@ const scheduleNotification = async (event: Event) => {
   return id;
 };
 
-const removeNotification = (event) => {
+const removeNotification = (event: { notificationId: string }) => {
   Notifications.cancelScheduledNotificationAsync(event.notificationId);
 };
 
 export const useSubscribedEvents = () => {
   const [subscribedEvents, setSubscribedEvents] = useAtom(subscribedEventsAtom);
+  const [notifications, setNotifications] = useAtom(notificationsAtom);
 
-  const subscribe = async (event) => {
+  const subscribe = async (event: Event) => {
     const id = await scheduleNotification(event);
-    event.notificationId = id;
-    event.subEvents.map(async (subEvent) => {
-      const id = await scheduleNotification(subEvent);
-      subEvent.notificationId = id;
-    });
+
+    const newNotification = {
+      eventId: event.id,
+      notificationId: id,
+    };
+
+    const newNotifications = [...notifications, newNotification];
     const newSubscribedEvents = [...subscribedEvents, event];
+
+    setNotifications(newNotifications);
     setSubscribedEvents(newSubscribedEvents);
   };
 
-  const unSubscribe = (event: Event) => {
+  const unsubscribe = (event: Event) => {
     const newSubscribedEvents = subscribedEvents.filter((item) => {
       if (item.id === event.id) {
-        removeNotification(event);
-        event.AgendaItem.map((subEvent) => {
-          removeNotification(subEvent.id);
+        removeNotification({
+          notificationId: notifications.find(
+            (notification) => notification.eventId === event.id
+          )?.notificationId,
         });
       }
       return item.id !== event.id;
     });
+
+    const newNotifications = notifications.filter(
+      (notification) => notification.eventId !== event.id
+    );
+
+    setNotifications(newNotifications);
     setSubscribedEvents(newSubscribedEvents);
   };
 
   return {
     subscribedEvents: subscribedEvents,
     addEvent: subscribe,
-    removeEvent: unSubscribe,
+    removeEvent: unsubscribe,
   };
 };

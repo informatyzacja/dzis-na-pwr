@@ -1,29 +1,95 @@
 import { Event, EventsListNavigationProp } from '../routes/EventsList';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { Card, Text, TouchableRipple } from 'react-native-paper';
 
+const eventsNames = [
+  'Wieczór Gier Planszowych',
+  'OdraNa Juwenalia',
+  'Wieczór RPG - maj 2023',
+  'Studenckie Wesele PWr Party',
+  'Studenci na tropie wydziałowych tajemnic - Gra samorządowca 2023',
+  'Studencka Dawka Kultury x DKF - „Sekrety i kłamstwa',
+];
+
+const limit = 35;
+
+const limitEventName = (name: string) => {
+  if (name.length > limit) {
+    return name.slice(0, limit) + '...';
+  }
+  return name;
+};
+
 const EventCard = ({ item }: { item: Event }) => {
-  // console.log(console.log('item', JSON.stringify(item, null, 2)));
-  //TODO: Switch in later version from fake api call to AsyncStorage Call
   const navigation = useNavigation<EventsListNavigationProp>();
+
   return (
     <TouchableRipple
       onPress={() => navigation.navigate('EventDetails', item)}
       rippleColor="rgba(0, 0, 0, .32)"
     >
-      <Card mode="elevated" style={styles.eventCard}>
-        <Card.Cover source={{ uri: item.logoUrl }} />
-        <Card.Title
-          title={item.name}
-          titleVariant="headlineSmall"
-          // subtitle={item.startsAt.toDateString()}
-          subtitleVariant="titleSmall"
+      <View
+        style={{
+          flexDirection: 'row',
+          gap: 10,
+        }}
+      >
+        <Image
+          style={{ width: 80, height: 80, borderRadius: 4 }}
+          source={{ uri: `https://picsum.photos/80/80?random=${item.id}` }}
         />
-        <Card.Content>
-          <Text>{item.description}</Text>
-        </Card.Content>
-      </Card>
+        <View>
+          <Text
+            variant="labelSmall"
+            style={{
+              color: '#e76f51',
+            }}
+          >
+            {item &&
+              item.startsAt &&
+              item.startsAt.toLocaleDateString &&
+              item.startsAt.toLocaleDateString()}
+            {` • `}
+            {item &&
+              item.startsAt &&
+              item.startsAt.toLocaleTimeString &&
+              item.startsAt.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+              })}
+          </Text>
+          <Text variant="titleMedium">
+            {limitEventName(
+              eventsNames[Math.floor(Math.random() * eventsNames.length)]
+            )}
+          </Text>
+          <Text
+            variant="labelSmall"
+            style={{
+              color: 'rgba(0, 0, 0, .54)',
+              marginTop: 2,
+            }}
+          >
+            Pola mokotowskie
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 4,
+              marginTop: 'auto',
+            }}
+          >
+            <MaterialCommunityIcons name="account-eye" size={12} />
+            <Text variant="bodySmall">
+              {Math.floor(Math.random() * 1000)} osób
+            </Text>
+          </View>
+        </View>
+      </View>
     </TouchableRipple>
   );
 };
