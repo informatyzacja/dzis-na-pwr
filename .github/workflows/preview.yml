@@ -84,7 +84,7 @@ jobs:
       - name: Seed database
         run: |
           npm i -G wait-on
-          wait-on tcp:5432
+          npx wait-on tcp:5432
           npm run docker:seed
 
       - uses: Rei-x/pull-request-preview-action/end-preview@main
