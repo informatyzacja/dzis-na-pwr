@@ -7,10 +7,8 @@ services:
       - prisma-studio
     ports:
       - '3000:3000'
-    build:
-      context: .
-      dockerfile: ./apps/web/Dockerfile
-    image: web
+
+    image: ghcr.io/informatyzacja/dzis-na-pwr/dzis-na-pwr.web
     env_file:
       - .env
   postgres:
@@ -29,11 +27,8 @@ services:
       - postgres:/var/lib/postgresql/data
   prisma-studio:
     container_name: prisma-studio
-    build:
-      context: .
-      dockerfile: ./packages/db/Dockerfile
     restart: unless-stopped
-    image: prisma-studio
+    image: ghcr.io/informatyzacja/dzis-na-pwr/dzis-na-pwr.prisma-studio
     depends_on:
       - postgres
     env_file:
