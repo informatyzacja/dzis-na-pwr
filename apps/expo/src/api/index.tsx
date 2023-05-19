@@ -47,9 +47,10 @@ const getBaseUrl = () => {
    * baseUrl to your production API URL.
    */
 
-  let apiUrl = Constants.expoConfig.extra.apiUrl;
+  let apiUrl =
+    Constants.expoConfig.extra.apiUrl ?? 'https://wydarzenia.sspwr.edu.eu.org';
 
-  if (apiUrl.includes('localhost')) {
+  if (apiUrl?.includes('localhost')) {
     apiUrl = apiUrl.replace(
       'localhost',
       Constants.expoConfig.hostUri?.split(':')[0]

@@ -34,7 +34,7 @@ module.exports = {
       eas: {
         projectId: '50c62d7b-3de5-42f7-b6de-e05c450992f8',
       },
-      apiUrl: process.env.NEXTAUTH_URL,
+      apiUrl: process.env.NEXTAUTH_URL ?? 'http://localhost:3000',
     },
     owner: 'informatyzacja',
     runtimeVersion: {
