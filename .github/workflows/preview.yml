@@ -81,6 +81,12 @@ jobs:
       - name: Start app
         run: npm run docker:run -- -d
 
+      - name: Seed database
+        run: |
+          npm i -G wait-on
+          wait-on tcp:5432
+          npm run docker:seed
+
       - uses: Rei-x/pull-request-preview-action/end-preview@main
         with:
           url: ${{ steps.tunnel-url.outputs.url-1 }}
