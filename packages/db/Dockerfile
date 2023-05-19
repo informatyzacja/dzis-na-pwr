@@ -22,6 +22,7 @@ COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
 RUN npm ci --ignore-scripts
+RUN npm run db:generate
 
 FROM base AS runner
 LABEL name="prisma-studio"
