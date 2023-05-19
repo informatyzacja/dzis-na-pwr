@@ -19,7 +19,7 @@
     "migrate:prod": "cd packages/db && npm run db:migrate:prod",
     "docker:build": "docker compose -f docker-compose.yml -f docker-compose.build.yml build",
     "docker:run": "docker compose -f docker-compose.yml -f docker-compose.build.yml up",
-    "docker:run:prod": "docker compose -f docker-compose.yml up",
+    "docker:run:prod": "docker compose up",
     "db:seed": "dotenv -- turbo db:seed",
     "db:studio": "dotenv -- turbo db:studio",
     "start": "dotenv -- turbo start",

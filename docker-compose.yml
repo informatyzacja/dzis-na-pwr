@@ -1,4 +1,5 @@
 version: '3.9'
+
 services:
   web:
     restart: always
@@ -7,8 +8,7 @@ services:
       - prisma-studio
     ports:
       - '3000:3000'
-
-    image: ghcr.io/informatyzacja/dzis-na-pwr/dzis-na-pwr.web
+    image: ghcr.io/informatyzacja/dzis-na-pwr/dzis-na-pwr.web:latest
     env_file:
       - .env
   postgres:
@@ -28,7 +28,7 @@ services:
   prisma-studio:
     container_name: prisma-studio
     restart: unless-stopped
-    image: ghcr.io/informatyzacja/dzis-na-pwr/dzis-na-pwr.prisma-studio
+    image: ghcr.io/informatyzacja/dzis-na-pwr/dzis-na-pwr.prisma-studio:latest
     depends_on:
       - postgres
     env_file:
