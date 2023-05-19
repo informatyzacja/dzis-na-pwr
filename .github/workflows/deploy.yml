@@ -4,6 +4,10 @@ on:
   push:
     branches: ['main']
 
+env:
+  POSTGRES_PORT: 5432
+  PRISMA_STUDIO_PORT: 5000
+
 jobs:
   publish:
     runs-on: ubuntu-latest
