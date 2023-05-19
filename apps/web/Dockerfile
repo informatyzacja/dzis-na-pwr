@@ -27,7 +27,7 @@ COPY --from=builder /app/out/full .
 RUN npm run build -- --filter=@informatyzacja/web
 
 FROM --platform=linux/amd64 node:18-alpine AS runner
-LABEL name="events-app-web"
+LABEL name="web"
 RUN apk add --no-cache libc6-compat openssl1.1-compat && apk update
 WORKDIR /app
 

@@ -24,7 +24,7 @@ COPY --from=builder /app/out/package-lock.json ./package-lock.json
 RUN npm ci --ignore-scripts
 
 FROM base AS runner
-LABEL name="events-app-db"
+LABEL name="prisma-studio"
 WORKDIR /app
 # Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
