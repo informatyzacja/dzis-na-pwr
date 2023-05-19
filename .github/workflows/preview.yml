@@ -52,8 +52,6 @@ jobs:
             (time $@ || echo $cmd_name >> fail.txt) 2>&1 > $cmd_name.txt
           }
 
-          time npm ci
-          time npm run build
           launch_as build1 npm run docker:build &
 
       - name: Post mobile app
