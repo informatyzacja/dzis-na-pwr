@@ -4,10 +4,6 @@ on:
   push:
     branches: ['main']
 
-env:
-  POSTGRES_PORT: 5432
-  PRISMA_STUDIO_PORT: 5000
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -17,9 +13,16 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v3
-      - name: publish
-        uses: pennsignals/publish_docker-compose@v0.1.0
-        with:
-          docker_compose: 'docker-compose.yml'
-          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+      # Log into github registry
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup env
+        run: cp .env.example .env
+      - name: Build the docker-compose
+        run: docker compose build
+      - name: List images
+        run: docker images
+      - name: Push images
+        run: docker compose push

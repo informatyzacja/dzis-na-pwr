@@ -10,6 +10,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
+    image: web
     env_file:
       - .env
   postgres:
@@ -32,6 +33,7 @@ services:
       context: .
       dockerfile: ./packages/db/Dockerfile
     restart: unless-stopped
+    image: prisma-studio
     depends_on:
       - postgres
     env_file:
