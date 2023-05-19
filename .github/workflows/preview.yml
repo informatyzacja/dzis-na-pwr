@@ -40,18 +40,18 @@ jobs:
           message: |
             **🖼️ Preview Environment:** _Building app..._
 
+      - name: Post mobile app
+        uses: ./.github/expo-preview
+        with:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
       - name: Build app
         run: |
           cp .env.example .env
           sed -i "s/NEXTAUTH_URL.*//" .env
           echo "NEXTAUTH_URL=${{ steps.tunnel-url.outputs.url-1 }}" >> .env
           npm run docker:build
-
-      - name: Post mobile app
-        uses: ./.github/expo-preview
-        with:
-          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
       - name: Add info abourt starting app
         uses: marocchino/sticky-pull-request-comment@v2

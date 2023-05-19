@@ -11,12 +11,17 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Install dependencies
+      run: npm ci --ignore-scripts
+      shell: bash
+
     - name: Setup Expo
       uses: expo/expo-github-action@v7
       with:
-        expo-version: latest
         eas-version: latest
+        eas-cache: false
         token: ${{ inputs.EXPO_TOKEN }}
+        packager: npm
 
     - name: Publish Update
       id: publish-update
