@@ -22,7 +22,8 @@ runs:
       id: publish-update
       run: |
         cd apps/expo
-        update_output=$(eas update --branch ${{ github.head_ref }} --auto --non-interactive --json)
+        current_branch=$(git branch --show-current)
+        update_output=$(eas update --branch $current_branch --auto --non-interactive --json)
         ios_update_id=$(echo "$update_output" | jq -r '.[] | select(.platform == "ios") | .id ')
         ios_update_uri=$(echo "$update_output" | jq -r '.[] | select(.platform == "ios") | .manifestPermalink ')
         android_update_id=$(echo "$update_output" | jq -r '.[] | select(.platform == "android") | .id ')
