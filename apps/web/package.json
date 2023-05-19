@@ -17,6 +17,8 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@informatyzacja/db": "*",
+    "@informatyzacja/auth": "*",
+    "@informatyzacja/api": "*",
     "@tanstack/react-query": "^4.28.0",
     "@trpc/client": "^10.18.0",
     "@trpc/next": "^10.18.0",

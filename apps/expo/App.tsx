@@ -1,4 +1,4 @@
-import { expo } from './app.json';
+import { expo } from './app.config';
 import { TRPCProvider } from './src/api';
 import { useNotifications } from './src/hooks/useNotifications';
 import { useOnlineManager } from './src/hooks/useOnlineManager';

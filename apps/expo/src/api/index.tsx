@@ -19,6 +19,9 @@ declare module 'expo-constants' {
   interface Constants extends AdditionalConstants {
     expoConfig: {
       hostUri?: string;
+      extra: {
+        apiUrl?: string;
+      };
     };
   }
 }
@@ -44,14 +47,21 @@ const getBaseUrl = () => {
    * baseUrl to your production API URL.
    */
 
-  const localhost = Constants.expoConfig.hostUri?.split(':')[0];
-  if (!localhost) {
-    // return "https://your-production-url.com";
-    throw new Error(
-      'Failed to get localhost. Please point to your production server.'
+  let apiUrl = Constants.expoConfig.extra.apiUrl;
+
+  if (apiUrl.includes('localhost')) {
+    apiUrl = apiUrl.replace(
+      'localhost',
+      Constants.expoConfig.hostUri?.split(':')[0]
     );
   }
-  return `http://${localhost}:3000`;
+
+  console.log(apiUrl);
+
+  if (!apiUrl) {
+    throw new Error('Failed to get url.');
+  }
+  return apiUrl;
 };
 
 const asyncStoragePersister = createAsyncStoragePersister({
