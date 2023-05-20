@@ -1,26 +1,30 @@
 import { useIsSubscribed } from '../hooks/useIsSubscribed';
 import { useSubscribedEvents } from '../hooks/useSubscribedEvents';
+import { Event } from '../routes/EventsList';
 import theme from '../theme';
 import CardRow from './CardRow';
 import SubscribeButton from './SubscribeButton';
 import { StyleSheet, View } from 'react-native';
 
-const EventDetailsCard = ({ eventData }) => {
-  const isSubscribed = useIsSubscribed(eventData);
+const EventDetailsCard = ({ event }: { event: Readonly<Event> }) => {
+  const isSubscribed = useIsSubscribed(event);
   const { addEvent, removeEvent } = useSubscribedEvents();
 
   const handleOnClick = async () => {
-    isSubscribed ? removeEvent(eventData) : addEvent(eventData);
+    isSubscribed ? removeEvent(event) : addEvent(event);
   };
+
+  const startsAt = new Date(event.startsAt);
+  const endsAt = new Date(event.endsAt);
 
   return (
     <View style={styles.detailsCardContainer}>
       <View style={styles.wrapper}>
         <CardRow
           icon={'calendar'}
-          text={`${eventData.startDate} - ${eventData.endDate}`}
+          text={`${startsAt.toLocaleDateString()} - ${event.endsAt}`}
         />
-        <CardRow icon={'map-marker'} text={eventData.place} />
+        <CardRow icon={'map-marker'} text={event.location} />
       </View>
       <View style={styles.buttonContainer}>
         <SubscribeButton

@@ -1,6 +1,7 @@
 import theme from '../theme';
 import EventDetails from './EventDetails';
 import EventsList, { Event } from './EventsList';
+import Search from './Search';
 import SubscribedEventsList from './SubscribedEventsList';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -12,6 +13,7 @@ export type RootStackParamList = {
   EventDetails: Event;
   main: undefined;
   Profile: undefined;
+  Search: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -78,11 +80,15 @@ const Navigation = () => {
         name="EventDetails"
         options={({ route }) => ({
           title: route.params.name,
-          headerStyle: {
-            backgroundColor: theme.colors.primaryContainer,
-          },
         })}
         component={EventDetails}
+      />
+      <Stack.Screen
+        name="Search"
+        options={{
+          headerShown: false,
+        }}
+        component={Search}
       />
     </Stack.Navigator>
   );

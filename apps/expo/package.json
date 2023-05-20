@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "expo start",
     "android": "expo start --android",
-    "clean": "rm -rf node_modules",
+    "clean": "rm -rf node_modules dist .expo",
     "ios": "expo start --ios",
     "build:android": "eas build --local --non-interactive --output=./android-build.apk --platform=android --profile=preview",
     "build:ios": "eas build --local --platform ios",

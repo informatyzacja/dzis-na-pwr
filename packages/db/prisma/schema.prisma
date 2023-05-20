@@ -12,34 +12,22 @@ datasource db {
 }
 
 model Event {
-  id          String       @id @default(cuid())
-  name        String
-  description String?
-  slug        String       @unique
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  startsAt    DateTime
-  endsAt      DateTime?
-  location    String?
-  logoUrl     String?
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-  team        Team         @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId      String
-  isPublic    Boolean      @default(true)
-  AgendaItem  AgendaItem[]
-}
-
-model AgendaItem {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  startsAt    DateTime
-  endsAt      DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId     String
+  id                String    @id @default(cuid())
+  name              String
+  description       String?
+  slug              String    @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  startsAt          DateTime
+  endsAt            DateTime?
+  numberOfAttendees Int       @default(0)
+  location          String?
+  logoUrl           String?
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  team              Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId            String
+  isPublic          Boolean   @default(true)
 }
 
 enum Role {
