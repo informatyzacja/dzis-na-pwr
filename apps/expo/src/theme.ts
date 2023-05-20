@@ -1,50 +1,66 @@
-import { MD3LightTheme as DefaultTheme } from 'react-native-paper';
+import {
+  DarkTheme as NavigationDarkTheme,
+  DefaultTheme as NavigationDefaultTheme,
+} from '@react-navigation/native';
+import merge from 'deepmerge';
+import {
+  MD3LightTheme as DefaultTheme,
+  adaptNavigationTheme,
+} from 'react-native-paper';
+
+const { LightTheme, DarkTheme } = adaptNavigationTheme({
+  reactNavigationLight: NavigationDefaultTheme,
+  reactNavigationDark: NavigationDarkTheme,
+});
 
 // colors generated  by providing #7FCBEA on website
 // https://callstack.github.io/react-native-paper/theming.html
 const theme = {
   ...DefaultTheme,
   colors: {
-    primary: 'rgb(0, 103, 130)',
+    primary: 'rgb(150, 73, 0)',
     onPrimary: 'rgb(255, 255, 255)',
-    primaryContainer: 'rgb(186, 234, 255)',
-    onPrimaryContainer: 'rgb(0, 31, 41)',
-    secondary: 'rgb(76, 97, 107)',
+    primaryContainer: 'rgb(255, 220, 198)',
+    onPrimaryContainer: 'rgb(49, 19, 0)',
+    secondary: 'rgb(104, 71, 192)',
     onSecondary: 'rgb(255, 255, 255)',
-    secondaryContainer: 'rgb(207, 230, 241)',
-    onSecondaryContainer: 'rgb(7, 30, 38)',
-    tertiary: 'rgb(92, 91, 126)',
+    secondaryContainer: 'rgb(232, 221, 255)',
+    onSecondaryContainer: 'rgb(33, 0, 93)',
+    tertiary: 'rgb(0, 103, 131)',
     onTertiary: 'rgb(255, 255, 255)',
-    tertiaryContainer: 'rgb(226, 223, 255)',
-    onTertiaryContainer: 'rgb(24, 24, 55)',
+    tertiaryContainer: 'rgb(188, 233, 255)',
+    onTertiaryContainer: 'rgb(0, 31, 42)',
     error: 'rgb(186, 26, 26)',
     onError: 'rgb(255, 255, 255)',
     errorContainer: 'rgb(255, 218, 214)',
     onErrorContainer: 'rgb(65, 0, 2)',
-    background: 'rgb(251, 252, 254)',
-    onBackground: 'rgb(25, 28, 30)',
-    surface: 'rgb(251, 252, 254)',
-    onSurface: 'rgb(25, 28, 30)',
-    surfaceVariant: 'rgb(220, 228, 232)',
-    onSurfaceVariant: 'rgb(64, 72, 76)',
-    outline: 'rgb(112, 120, 125)',
-    outlineVariant: 'rgb(192, 200, 204)',
+    background: 'rgb(255, 251, 255)',
+    onBackground: 'rgb(32, 26, 23)',
+    surface: 'rgb(255, 251, 255)',
+    onSurface: 'rgb(32, 26, 23)',
+    surfaceVariant: 'rgb(244, 222, 211)',
+    onSurfaceVariant: 'rgb(82, 68, 60)',
+    outline: 'rgb(132, 116, 106)',
+    outlineVariant: 'rgb(215, 195, 183)',
     shadow: 'rgb(0, 0, 0)',
     scrim: 'rgb(0, 0, 0)',
-    inverseSurface: 'rgb(46, 49, 50)',
-    inverseOnSurface: 'rgb(239, 241, 243)',
-    inversePrimary: 'rgb(96, 212, 254)',
+    inverseSurface: 'rgb(54, 47, 43)',
+    inverseOnSurface: 'rgb(251, 238, 232)',
+    inversePrimary: 'rgb(255, 183, 134)',
     elevation: {
       level0: 'transparent',
-      level1: 'rgb(238, 245, 248)',
-      level2: 'rgb(231, 240, 244)',
-      level3: 'rgb(223, 236, 240)',
-      level4: 'rgb(221, 234, 239)',
-      level5: 'rgb(216, 231, 237)',
+      level1: 'rgb(250, 242, 242)',
+      level2: 'rgb(247, 237, 235)',
+      level3: 'rgb(244, 231, 227)',
+      level4: 'rgb(242, 230, 224)',
+      level5: 'rgb(240, 226, 219)',
     },
-    surfaceDisabled: 'rgba(25, 28, 30, 0.12)',
-    onSurfaceDisabled: 'rgba(25, 28, 30, 0.38)',
-    backdrop: 'rgba(42, 50, 53, 0.4)',
+    surfaceDisabled: 'rgba(32, 26, 23, 0.12)',
+    onSurfaceDisabled: 'rgba(32, 26, 23, 0.38)',
+    backdrop: 'rgba(58, 46, 38, 0.4)',
   },
 };
-export default theme;
+
+const lightTheme = merge(theme, LightTheme);
+
+export default lightTheme;

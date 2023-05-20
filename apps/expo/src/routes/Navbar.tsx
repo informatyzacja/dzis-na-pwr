@@ -7,66 +7,22 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
-  EventsList: undefined;
-  SubscribedEventsList: undefined;
+  Events: undefined;
+  SubscribedEvents: undefined;
   EventDetails: Event;
+  main: undefined;
+  Profile: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createMaterialBottomTabNavigator<RootStackParamList>();
 
-const EventsNavigator = () => {
+const TabNavigation = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="EventsList"
-        component={EventsList}
-      />
-      <Stack.Screen
-        name="EventDetails"
-        options={({ route }) => ({
-          title: route.params.name,
-          headerStyle: {
-            backgroundColor: theme.colors.primaryContainer,
-          },
-        })}
-        component={EventDetails}
-      />
-    </Stack.Navigator>
-  );
-};
-const SubscribedEventsNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="SubscribedEventsList"
-        component={SubscribedEventsList}
-      />
-      <Stack.Screen
-        name="EventDetails"
-        options={({ route }) => ({
-          title: route.params.name,
-          headerStyle: {
-            backgroundColor: theme.colors.primaryContainer,
-          },
-        })}
-        component={EventDetails}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const Navbar = () => {
-  return (
-    <Tab.Navigator
-      barStyle={{ backgroundColor: theme.colors.primaryContainer }}
-      sceneAnimationEnabled={false}
-    >
+    <Tab.Navigator>
       <Tab.Screen
-        name="EventsList"
-        component={EventsNavigator}
+        name="Events"
+        component={EventsList}
         options={{
           tabBarLabel: 'Wydarzenia',
           tabBarIcon: ({ color }) => {
@@ -77,7 +33,7 @@ const Navbar = () => {
         }}
       />
       <Tab.Screen
-        name="SubscribedEventsList"
+        name="SubscribedEvents"
         options={{
           tabBarLabel: 'Obserwowane',
           tabBarIcon: ({ color }) => {
@@ -90,9 +46,45 @@ const Navbar = () => {
             );
           },
         }}
-        component={SubscribedEventsNavigator}
+        component={SubscribedEventsList}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={EventsList}
+        options={{
+          tabBarLabel: 'Konto',
+          tabBarIcon: ({ color }) => {
+            return (
+              <MaterialCommunityIcons name="account" color={color} size={26} />
+            );
+          },
+        }}
       />
     </Tab.Navigator>
   );
 };
-export default Navbar;
+
+const Navigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="main"
+        options={{
+          headerShown: false,
+        }}
+        component={TabNavigation}
+      />
+      <Stack.Screen
+        name="EventDetails"
+        options={({ route }) => ({
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: theme.colors.primaryContainer,
+          },
+        })}
+        component={EventDetails}
+      />
+    </Stack.Navigator>
+  );
+};
+export default Navigation;
