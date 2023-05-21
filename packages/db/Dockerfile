@@ -1,7 +1,7 @@
 
 
 # ---- Base Node ----
-FROM node:18-alpine AS base
+FROM --platform=linux/amd64 node:18-alpine AS base
 RUN apk add --no-cache libc6-compat openssl1.1-compat && apk update
 
 # ---- Turbo build ----
