@@ -16,6 +16,8 @@ const limitEventName = (name: string) => {
 const EventCard = ({ item }: { item: Event }) => {
   const navigation = useNavigation<EventsListNavigationProp>();
 
+  const startsAt = new Date(item.startsAt);
+
   return (
     <TouchableRipple
       onPress={() => navigation.navigate('EventDetails', item)}
@@ -38,19 +40,13 @@ const EventCard = ({ item }: { item: Event }) => {
               color: '#e76f51',
             }}
           >
-            {item &&
-              item.startsAt &&
-              item.startsAt.toLocaleDateString &&
-              item.startsAt.toLocaleDateString()}
+            {startsAt.toLocaleDateString()}
             {` • `}
-            {item &&
-              item.startsAt &&
-              item.startsAt.toLocaleTimeString &&
-              item.startsAt.toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false,
-              })}
+            {startsAt.toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false,
+            })}
           </Text>
           <Text variant="titleMedium">{limitEventName(item.name)}</Text>
           <Text
@@ -71,9 +67,7 @@ const EventCard = ({ item }: { item: Event }) => {
             }}
           >
             <MaterialCommunityIcons name="account-eye" size={12} />
-            <Text variant="bodySmall">
-              {Math.floor(Math.random() * 1000)} osób
-            </Text>
+            <Text variant="bodySmall">{item.numberOfAttendees} osób</Text>
           </View>
         </View>
       </View>

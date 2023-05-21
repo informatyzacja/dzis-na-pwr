@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import { QueryClient } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
-import { httpBatchLink } from '@trpc/client';
+import { httpBatchLink, loggerLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import Constants from 'expo-constants';
 import React from 'react';
@@ -92,6 +92,19 @@ export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
     api.createClient({
       transformer: superjson,
       links: [
+        loggerLink({
+          enabled: (opts) =>
+            opts.direction === 'down' &&
+            (__DEV__ || opts.result instanceof Error),
+
+          console: {
+            log: (...args) => {
+              delete args[4].result.context.response;
+              console.log(...args);
+            },
+            error: (...args) => console.error(...args),
+          },
+        }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
         }),

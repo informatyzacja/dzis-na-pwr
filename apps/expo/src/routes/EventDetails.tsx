@@ -1,5 +1,4 @@
 import EventDetailsCard from '../components/EventDetailsCard';
-import SubEventCard from '../components/SubEventCard';
 import { RootStackParamList } from './Navbar';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View, Image, ScrollView, StyleSheet } from 'react-native';
@@ -22,7 +21,7 @@ const EventDetails = ({ route }: EventDetailsProps) => {
         />
         <Text variant="headlineLarge">{eventData.name}</Text>
         <View style={styles.detailsContainer}>
-          <EventDetailsCard eventData={eventData} />
+          <EventDetailsCard event={eventData} />
         </View>
         <View>
           <Text variant="titleLarge">Opis</Text>
@@ -30,10 +29,6 @@ const EventDetails = ({ route }: EventDetailsProps) => {
             {eventData.description}
           </Text>
         </View>
-        <Text variant="titleLarge">Harmonogram</Text>
-        {eventData.AgendaItem.map((subEvent) => {
-          return <SubEventCard key={subEvent.id} subEvent={subEvent} />;
-        })}
       </View>
     </ScrollView>
   );

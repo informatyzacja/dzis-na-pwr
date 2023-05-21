@@ -39,6 +39,7 @@ export const eventFactory = (
     startsAt: faker.date.future(),
     logoUrl: faker.image.imageUrl(undefined, undefined, undefined, true),
     slug: faker.lorem.slug(),
+    numberOfAttendees: faker.datatype.number(1000),
     user: {
       connectOrCreate: {
         create: user,

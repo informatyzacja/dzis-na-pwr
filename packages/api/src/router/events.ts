@@ -8,11 +8,12 @@ export const eventsRouter = createTRPCRouter({
         .object({
           limit: z.number().min(1).max(100).default(20),
           offset: z.number().min(0).default(0),
+          search: z.string().optional(),
         })
         .default({})
     )
-    .query(({ ctx, input: { limit, offset } }) => {
-      return ctx.prisma.event.findMany({
+    .query(async ({ ctx, input: { limit, offset, search } }) => {
+      const data = await ctx.prisma.event.findMany({
         orderBy: {
           startsAt: 'desc',
         },
@@ -23,18 +24,20 @@ export const eventsRouter = createTRPCRouter({
           startsAt: true,
           logoUrl: true,
           location: true,
-          AgendaItem: {
-            select: {
-              id: true,
-              name: true,
-              startsAt: true,
-              endsAt: true,
-              description: true,
-            },
-          },
+          numberOfAttendees: true,
+          endsAt: true,
         },
         take: limit,
         skip: offset,
+        where: search ? { name: { search } } : undefined,
       });
+
+      const datesMappedtoStrings = data.map((event) => ({
+        ...event,
+        startsAt: event.startsAt.toISOString(),
+        endsAt: event.endsAt?.toISOString(),
+      }));
+
+      return datesMappedtoStrings;
     }),
 });
