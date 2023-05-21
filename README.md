@@ -85,3 +85,6 @@ npm run docker:run:prod -- -d
 ```bash
 npm run docker:seed
 ```
+
+### Jak działają backupy?
+xd
